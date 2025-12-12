@@ -1,5 +1,8 @@
 import mido
 
+# Silent note for creating simple rythms
+rest     = mido.Message('note_on', channel=0, note=108, velocity=0, time=0)
+
 # A0 to B0
 a0       = mido.Message('note_on', channel=0, note=21, velocity=64, time=0)
 a_sharp0 = mido.Message('note_on', channel=0, note=22, velocity=64, time=0)
