@@ -1,11 +1,6 @@
 import mido
 import time
-import notes as key
-
-# mensagem = mido.Message('note_on')
-# print(mensagem.bytes())
-
-
+import chord_progressions as prog
 
 def get_output_names():
     ports = mido.get_output_names()
@@ -44,14 +39,9 @@ def play_output(outport, chord_progression, interval_speed):
             for note in chord:
                 outport.send(mido.Message('note_off', note.note))
 
-
-# chord_progression = [[a3], [c3, e3], [e2], [c3, a3]]
-chord_progression = [[key.c3], [key.d_sharp3, key.g3], [key.a_sharp3], [key.d3, key.f3], [key.g_sharp2], [key.c3, key.d_sharp3], [key.g2], [key.b3, key.d3]]
-
-bpm = 100
+bpm = 120
 interval_speed = get_interval_speed(bpm, 1)
 
 output_port = mido.open_output(get_output_port())
 
-play_output(output_port, chord_progression, interval_speed)
-get_output_port()
+play_output(output_port, prog.c_russian_1, interval_speed)
