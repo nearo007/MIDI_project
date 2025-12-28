@@ -9,7 +9,8 @@ def get_note_ids(mode, key, register):
     else:
         steps = [0, 2, 1, 2, 2, 1, 2, 2]
     
-    current_id = key + 23
+    B0_MIDI = 23
+    current_id = B0_MIDI + key
     for i in steps:
         current_id += i
         note_ids.append((current_id) + (register - 1) * 12)

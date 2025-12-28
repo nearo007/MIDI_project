@@ -34,7 +34,6 @@ def play_output(outport, chord_progression, interval_speed, staccato_factor=0.5)
             time.sleep(note_duration)
             
             for note in chord:
-                for note in chord:
-                    outport.send(mido.Message('note_off', note=note.note, velocity=0, channel=note.channel))
+                outport.send(mido.Message('note_off', note=note.note, velocity=0, channel=note.channel))
             
             time.sleep(silence_duration)
