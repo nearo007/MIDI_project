@@ -46,8 +46,9 @@ def play_output(outport, chord_progression, interval_speed, staccato_factor=0.5)
             time.sleep(silence_duration)
 
 bpm = 120
-interval_speed = get_interval_speed(bpm, 2)
+interval_speed = get_interval_speed(bpm, 1)
 
+# output_port = mido.open_output(get_virtual_output_port())
 output_port = mido.open_output(get_output_port())
 
-play_output(output_port, prog.c_blues_1, interval_speed, 1)
+play_output(output_port, prog.c_blues_1, interval_speed, 0.5)
