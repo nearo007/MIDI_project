@@ -1,14 +1,18 @@
-import mido
-from scales import get_playable_scale
-from ports import get_virtual_output_port, get_output_port, play_output
-from utils import get_interval_speed
+from src.infrastructure.adapters.mido_adapter import MidoAdapter
+from src.application.player_service import PlayerService
+from src.domain.music_theory import get_scale_notes, get_playable_scale
+from src.domain.bpm import get_interval_speed
+
+midi_adapter = MidoAdapter()
+
+player = PlayerService(port=midi_adapter)
 
 bpm = 120
-interval_speed = get_interval_speed(bpm, 1)
+interval_speed = get_interval_speed(bpm=bpm, time_signature=1)
 
-output_port = mido.open_output(get_output_port())
-output_port = mido.open_output(get_virtual_output_port())
+scale = get_playable_scale(mode=1, key=1, register=2)
 
-scale = get_playable_scale(2, 1, 2) # mode (0=major, 1=minor), key 1-12 (C to B), register 1-7 (octaves)
+# scale = [[60, 64, 67], [57, 60, 64], [53, 57, 60], [55, 59, 62]] # testando acordes
 
-play_output(output_port, scale, interval_speed, 0.5)
+print(f"A tocar escala {scale}")
+player.play_sequence(scale, interval_speed)
