@@ -1,6 +1,7 @@
 from src.domain.notes import b0
+import random
 
-def get_scale_notes(mode, key, register): # mode (0=major, 1=minor), key 1-12 (C to B), register 1-7 (octaves)
+def get_scale_notes(mode=0, key=1, register=3): # mode (0=major, 1=minor), key 1-12 (C to B), register 1-7 (octaves)
     scale = []
     
     if mode == 0:
@@ -18,14 +19,26 @@ def get_scale_notes(mode, key, register): # mode (0=major, 1=minor), key 1-12 (C
         current_id += i
         scale.append((current_id) + (register - 1) * 12)
         
-    return scale
+    return scale # [60, 64, 67]
 
-def get_playable_scale(mode=0, key=1, register=3):
-    scale = get_scale_notes(mode, key, register)
-    
+def get_playable_sequence(sequence: list):    
     playable_scale = []
     
-    for i in scale:
+    for i in sequence:
         playable_scale.append([i])
     
-    return playable_scale
+    return playable_scale # [[60, 64, 67], [57, 60, 64], [53, 57, 60], [55, 59, 62]]
+
+def random_chord_sequence(scale=None, chord_count=4, note_count=3):
+    if not scale:
+        scale = get_scale_notes()
+        
+    sequence = []
+    
+    for _ in range(chord_count):
+        available_notes = scale.copy()
+        chord = random.sample(available_notes, note_count)
+    
+        sequence.append(chord)
+    
+    return sequence # [[60, 64, 67], [57, 60, 64], [53, 57, 60], [55, 59, 62]]
