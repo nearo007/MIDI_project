@@ -5,7 +5,10 @@ class MidoAdapter(IMIDIPort):
     def __init__(self, port_name=None):
         if port_name is None:
             ports = mido.get_output_names()
-            print(ports)
+            print("\nAvailable Ports:\n")
+            for p in ports:
+                print(p)
+            print()
             
             for o in ports:
                 if o.find('MIDI') != -1:
@@ -15,7 +18,7 @@ class MidoAdapter(IMIDIPort):
                 if o.find('virtual') != -1:
                     port_name = o
             
-            self.outport = mido.open_output(port_name)
+        self.outport = mido.open_output(port_name)
         
     def send_note_on(self, note: int, velocity: int):
         msg = mido.Message('note_on', note=note, velocity=velocity)
