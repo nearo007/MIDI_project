@@ -1,7 +1,7 @@
 from src.domain.notes import b0
 import random
 
-def get_scale_notes(mode=0, key=1, register=3): # mode (0=major, 1=minor), key 1-12 (C to B), register 1-7 (octaves)
+def get_scale_notes(mode=0, key=1, register=4, include_octave=False): # mode (0=major, 1=minor), key 1-12 (C to B), register 1-7 (octaves)
     scale = []
     
     if mode == 0:
@@ -18,6 +18,9 @@ def get_scale_notes(mode=0, key=1, register=3): # mode (0=major, 1=minor), key 1
     for i in steps:
         current_id += i
         scale.append((current_id) + (register - 1) * 12)
+    
+    if not include_octave:
+        scale.pop()
         
     return scale # [60, 64, 67]
 
