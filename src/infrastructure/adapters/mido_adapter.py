@@ -27,7 +27,7 @@ class MidoAdapter(IMIDIPort):
             if self._port_name is None:
                 raise RuntimeError("No available port.")
             
-        self.change_outport(self._port_name)
+        self.set_outport(self._port_name)
     
     def available_outports(self) -> list[str]:
         return mido.get_output_names()
@@ -36,7 +36,7 @@ class MidoAdapter(IMIDIPort):
         if self.outport is not None:
             self.outport.close()
             
-    def change_outport(self, output_port_name):
+    def set_outport(self, output_port_name):
         self.close_current_outport()
 
         try:
