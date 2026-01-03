@@ -1,5 +1,5 @@
 import time
-from src.application.interfaces.midi_port import IMIDIPort
+from ..application.interfaces.midi_port import IMIDIPort
 
 class PlayerService:
     def __init__(self, port: IMIDIPort):

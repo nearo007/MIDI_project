@@ -1,4 +1,4 @@
-from src.domain.notes import b0
+from .notes import b0
 import random
 
 def get_scale_notes(mode=0, key=1, octave=4, register=None, include_octave=False): # mode (0=major, 1=minor), key 1-12 (C to B), octave 1-7 (octaves)
