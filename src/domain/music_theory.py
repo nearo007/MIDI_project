@@ -38,7 +38,7 @@ def get_scale_notes(mode=0, key=1, octave=4, register=None, include_octave=False
         
     return scale # [60, 64, 67]
 
-def get_playable_sequence(sequence: list):    
+def to_playable_sequence(sequence: list):    
     playable_scale = []
     
     for i in sequence:

@@ -1,6 +1,6 @@
 #from src.infrastructure.adapters.mido_adapter import MidoAdapter
 from ...adapters.mido_adapter import MidoAdapter
-from ....domain.music_theory import get_scale_notes, get_playable_sequence, random_chord_sequence
+from ....domain.music_theory import get_scale_notes, to_playable_sequence, random_chord_sequence
 from ....application.player_service import PlayerService
 from ....domain.bpm import get_interval_speed
 
@@ -28,69 +28,100 @@ def user_choose(options):
     
     return user_in
 
+def input_get_scale():
+    print("\nEnter the following parameters:\n(Blank for default values)")
+                    
+    print("\nEnter scale mode: ")
+    options = ["Major", "Minor", "Minor Blues"]
+    user_in = user_choose(options)
+    mode = str_to_int(user_in) - 1
+    
+    print("\nEnter scale key: ")
+    options = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+    user_in = user_choose(options)
+    key = str_to_int(user_in)
+    
+    print("\nEnter octave (1-7): ")
+    user_in = str(input(">> "))
+    octave = str_to_int(user_in)
+    
+    scale = get_scale_notes(mode=mode, key=key, octave=octave, include_octave=True) #TODO include octave hard coded
+    
+    return scale
+
 def run():
     adapter = MidoAdapter()
     adapter.pick_port()
+    player = PlayerService(adapter)
+    
+    
+    # TODO hard coded
+    bpm = 120
+    interval_speed = get_interval_speed(bpm)
+    staccato=0.5
     
     while True: # app loop
-        options = ["Choose output port.", "Generate chord progression.", "Loop scale."]
-        
-        display_options(options)
-        print(f"Type \"quit\" to exit the CLI.")
-        print()
-        
-        user_in = str(input(">> "))
-        print()
-        
-        match user_in:
-            case "1":
-                ports = adapter.available_outports()
-                
-                user_in = user_choose(ports)
-                port_id = str_to_int(user_in) - 1
-                
-                try:
-                    adapter.set_outport(ports[port_id])
-                    print()
-                    print(f"Output port was successfully set to: {adapter.outport.name}")
+        try:
+            options = ["Choose output port.", "Generate chord progression.", "Loop scale."]
+            
+            display_options(options)
+            print(f"Type \"quit\" to exit the CLI.")
+            print()
+            
+            user_in = str(input(">> "))
+            print()
+            
+            match user_in:
+                case "1":
+                    ports = adapter.available_outports()
                     
-                except Exception as e:
-                    print(e)
+                    user_in = user_choose(ports)
+                    port_id = str_to_int(user_in) - 1
+                    
+                    try:
+                        adapter.set_outport(ports[port_id])
+                        print()
+                        print(f"Output port was successfully set to: {adapter.outport.name}")
+                        
+                    except Exception as e:
+                        print(e)
+                    
+                case "2":
+                    # print("\nEnter the following parameters:\n(Blank for default values)")
+                    
+                    # print("\nEnter scale mode: ")
+                    # options = ["Major", "Minor", "Minor Blues"]
+                    # user_in = user_choose(options)
+                    # mode = str_to_int(user_in)
+                    
+                    # print("\nEnter scale key: ")
+                    # options = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+                    # user_in = user_choose(options)
+                    # key = str_to_int(user_in)
+                    
+                    # print("\nEnter octave (1-7): ")
+                    # user_in = str(input(">> "))
+                    # octave = str_to_int(user_in)
+                    
+                    # scale = get_scale_notes(mode=mode, key=key, octave=octave, include_octave=True) #TODO include octave hard coded
+                    
+                    scale = input_get_scale()
+                    sequence = random_chord_sequence(scale=scale, chord_count=4, note_count=3)
+                    
+                    player.play_sequence(sequence=sequence, interval_speed=interval_speed, staccato=staccato)
+                    
+                case "3":
+                    scale = input_get_scale()
+                    sequence = to_playable_sequence(scale)
+                    player.play_sequence(sequence=sequence, interval_speed=interval_speed, staccato=staccato)
                 
-            case "2":
-                print("\nEnter the following parameters:\n(Blank for default values)")
+                case "quit" | "Quit" | "QUIT":
+                    print("See you, next time.")
+                    break;
                 
-                print("\nEnter scale mode: ")
-                options = ["Major", "Minor", "Minor Blues"]
-                user_in = user_choose(options)
-                mode = str_to_int(user_in)
-                
-                print("\nEnter scale key: ")
-                options = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
-                user_in = user_choose(options)
-                key = str_to_int(user_in)
-                
-                print("\nEnter octave (1-7): ")
-                user_in = str(input(">> "))
-                octave = str_to_int(user_in)
-                
-                scale = get_scale_notes(mode=mode, key=key, octave=octave, include_octave=True) #TODO include octave hard coded
-                
-                sequence = random_chord_sequence(scale=scale, chord_count=4, note_count=3)
-                player = PlayerService(adapter)
-                
-                bpm = 120 #TODO hard coded
-                interval_speed = get_interval_speed(bpm)
-                player.play_sequence(sequence=sequence, interval_speed=interval_speed, staccato=0.5) # staccato factor hard coded
-                
-            case "3":
-                pass
-            
-            case "quit" | "Quit" | "QUIT":
-                print("See you, next time.")
-                break;
-            
-            case _:
-                pass
+                case _:
+                    pass
+        except Exception as e:
+            print(f"\nAn error ocurred: {e}\n")
         
 run()
