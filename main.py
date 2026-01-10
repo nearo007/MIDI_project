@@ -24,6 +24,8 @@
 # player.play_sequence(sequence=sequence, interval_speed=interval_speed, staccato=1)
 
 from src.infrastructure.ui.cli.cli_app import run as run_cli_app
+from src.infrastructure.ui.tkinter.tk_app import run as run_window_app
 
 if __name__ == '__main__':
-    run_cli_app()
+    # run_cli_app()
+    run_window_app()

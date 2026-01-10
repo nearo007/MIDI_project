@@ -123,5 +123,6 @@ def run():
                     pass
         except Exception as e:
             print(f"\nAn error ocurred: {e}\n")
-        
-run()
+
+if __name__ == '__main__':
+    run()
