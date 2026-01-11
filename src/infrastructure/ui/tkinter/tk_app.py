@@ -39,7 +39,7 @@ try:
 except Exception as e:
     print(e)
 
-ttk.Button(frame, text='Set Output Port', command=window_set_outport).grid(column=0, row=1)
+ttk.Button(frame, text='Set Output Port', command=window_set_outport).grid(column=1, row=1)
 
 ttk.Button(frame, text='Play scale', command=window_play).grid(column=0, row=2)
 ttk.Button(frame, text='Let me out', command=root.destroy).grid(column=0, row=3)
