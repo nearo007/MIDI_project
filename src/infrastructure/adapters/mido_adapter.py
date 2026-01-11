@@ -58,6 +58,9 @@ class MidoAdapter(IMIDIPort):
         msg = mido.Message('note_off', note=note, velocity=0)
         self.outport.send(msg)
     
+    def get_current_port(self):
+        return self._port_name
+    
     def __del__(self):
         try:
             self.close_current_outport()
