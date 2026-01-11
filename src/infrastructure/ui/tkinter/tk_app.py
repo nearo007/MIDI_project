@@ -1,3 +1,4 @@
+import threading
 import tkinter as tk
 from tkinter import ttk
 from ...adapters.mido_adapter import MidoAdapter
@@ -16,11 +17,28 @@ bpm = 120
 interval_speed = get_interval_speed(bpm)
 staccato = 0.5
 
-def window_play():
+playing = False
+
+def play_loop():
+    global playing
     print(adapter.get_current_port())
-    player.play_sequence(sequence, interval_speed=interval_speed, staccato=staccato)
+    while playing:
+        player.play_sequence(sequence, interval_speed, staccato)
+
+def window_play():
+    global playing
+    if playing:
+        return
+    
+    playing = True
+    threading.Thread(target=play_loop, daemon=True).start()
+
+def window_stop():
+    global playing
+    playing = False
 
 def window_set_outport():
+    window_stop()
     adapter.set_outport(var_string.get())
     
 # tkinter
