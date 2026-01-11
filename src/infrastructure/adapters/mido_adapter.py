@@ -36,14 +36,14 @@ class MidoAdapter(IMIDIPort):
         if self.outport is not None:
             self.outport.close()
             
-    def set_outport(self, output_requested_port_name):
+    def set_outport(self, output_port_name):
         self.close_current_outport()
 
         try:
-            self.outport = mido.open_output(output_requested_port_name)
+            self.outport = mido.open_output(output_port_name)
         
         except IOError as e:
-            raise RuntimeError(f"Failed to open output port in {output_requested_port_name}") from e
+            raise RuntimeError(f"Failed to open output port in {output_port_name}") from e
         
     def send_note_on(self, note: int, velocity: int):
         if not self.outport:
@@ -59,7 +59,7 @@ class MidoAdapter(IMIDIPort):
         self.outport.send(msg)
     
     def get_current_port(self):
-        return self.outport.name
+        return self._requested_port_name
     
     def __del__(self):
         try:
