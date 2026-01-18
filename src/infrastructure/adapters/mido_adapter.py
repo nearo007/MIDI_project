@@ -59,7 +59,7 @@ class MidoAdapter(IMIDIPort):
         self.outport.send(msg)
     
     def get_current_port(self):
-        return self._requested_port_name
+        return self.outport.name
     
     def __del__(self):
         try:
