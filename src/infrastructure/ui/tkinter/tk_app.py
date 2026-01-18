@@ -1,10 +1,10 @@
 import threading
-import tkinter as tk
-from tkinter import ttk
+from .window import Window
 from ...adapters.mido_adapter import MidoAdapter
 from ....application.player_service import PlayerService
 from ....domain.music_theory import get_scale_notes, to_playable_sequence
 from ....domain.bpm import get_interval_speed
+
 # mido
 adapter = MidoAdapter()
 adapter.pick_port()
@@ -18,49 +18,44 @@ interval_speed = get_interval_speed(bpm)
 staccato = 0.5
 
 playing = False
+play_thread = None
 
-def play_loop():
+def set_outport(port_name):
+    sequence_stop()
+    adapter.set_outport(port_name)
+    
+def sequence_start():
     global playing
-    print(adapter.get_current_port())
-    while playing:
-        player.play_sequence(sequence, interval_speed, staccato)
-
-def window_play():
-    global playing
+    global play_thread
+    
     if playing:
         return
     
     playing = True
-    threading.Thread(target=play_loop, daemon=True).start()
-
-def window_stop():
-    global playing
-    playing = False
-
-def window_set_outport():
-    window_stop()
-    adapter.set_outport(var_string.get())
+    play_thread = threading.Thread(target=play_loop, daemon=True)
+    play_thread.start()
     
+def sequence_stop():
+    global playing
+    
+    playing = False
+    
+def play_loop():
+    global playing
+    
+    while playing:
+        player.play_sequence(sequence, interval_speed, staccato)
+
 # tkinter
-root = tk.Tk()
-root.geometry("1280x720")
-frame = ttk.Frame(root, padding=10)
+window = Window()
 
-frame.grid()
+window.add_label(text="MIDI Toolbox", grid=[0,0])
 
-ttk.Label(frame, text='MIDI Toolbox').grid(column=0, row=0)
+window.add_option_menu(options=ports, grid=[0, 1])
+    
+window.add_button(text="Set Output Port", command=lambda: set_outport(port_name=window.display_string.get()), grid=[1, 1])
+window.add_button(text="Play scale", command=sequence_start, grid=[0, 2])
+window.add_button(text="Stop", command=sequence_stop, grid=[1, 2])
+window.add_button(text="Let me out", command=window.root.destroy, grid=[0, 3])
 
-try:
-    default_opt = ports[0]
-    var_string = tk.StringVar(value=default_opt)
-    ttk.OptionMenu(frame, var_string, default_opt, *ports).grid(column=0, row=1)
-except Exception as e:
-    print(e)
-
-ttk.Button(frame, text='Set Output Port', command=window_set_outport).grid(column=1, row=1)
-
-ttk.Button(frame, text='Play scale', command=window_play).grid(column=0, row=2)
-ttk.Button(frame, text='Let me out', command=root.destroy).grid(column=0, row=3)
-
-def run():
-    root.mainloop()
+window.run()
