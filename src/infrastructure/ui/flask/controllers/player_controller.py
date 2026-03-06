@@ -8,8 +8,7 @@ def index():
     name = "Everbody is,"
     surname = "Looking at me."
     
-    context = { 'name' : name, 'surname' : surname}
-    return render_template('index.html', context=context)
+    return render_template('index.html')
 
 @player_service_bp.route("/play", methods=['POST'])
 def play():
@@ -22,3 +21,7 @@ def play():
         print(f"Oh no!\n{e}")
     
     return "", 204
+
+@player_service_bp.route("/chord-lab", methods=['GET'])
+def chord_lab():
+    return render_template("index.html")

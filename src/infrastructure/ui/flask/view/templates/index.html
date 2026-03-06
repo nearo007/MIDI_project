@@ -1,18 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mid Piano</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-  </head>
-  <body>
+{% extends "layout.html" %}
+
+{% block import_css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block content %}
     <h1>NEARO PIANO</h1>
     <h2>Everybody is looking at me.</h2>
 
     <div class="piano-wrapper">
       <div class="piano" id="piano"></div>
     </div>
-  </body>
+{% endblock %}
+
+{% block import_js %}
   <script src="{{ url_for('static', filename='js/index.js') }}"></script>
-</html>
+{% endblock %}
