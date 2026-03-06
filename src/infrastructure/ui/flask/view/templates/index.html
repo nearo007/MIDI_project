@@ -7,9 +7,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
   </head>
   <body>
-    <h1>{{ context.name }}</h1>
-    <h1>{{ context.surname }}</h1>
-    <h1>Everybody is looking at me.</h1>
-    <button>E</button>
+    <h1>NEARO PIANO</h1>
+    <h2>Everybody is looking at me.</h2>
+
+    <div class="piano-wrapper">
+      <div class="piano" id="piano"></div>
+    </div>
   </body>
+  <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </html>

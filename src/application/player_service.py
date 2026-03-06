@@ -1,4 +1,5 @@
 import time
+import threading
 
 class PlayerService:
     def __init__(self, port):
@@ -16,3 +17,7 @@ class PlayerService:
             for note_int in chord: 
                 self.port.send_note_off(note_int)
             time.sleep(silence_duration)
+
+    def play_async(self, sequence, interval_speed=0.5, staccato=0.5):
+        thread = threading.Thread(target=self.play_sequence, args=(sequence, interval_speed, staccato), daemon=True)
+        thread.start()
