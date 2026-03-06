@@ -43,7 +43,7 @@ class MidoAdapter(IMIDIPort):
             self.outport = mido.open_output(output_port_name)
         
         except IOError as e:
-            raise RuntimeError(f"Failed to open output port in {output_port_name}") from e
+            raise RuntimeError(f"Failed to open output port in {output_port_name}")
         
     def send_note_on(self, note: int, velocity: int):
         if not self.outport:

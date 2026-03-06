@@ -28,6 +28,6 @@ from src.infrastructure.ui.tkinter.tk_app import run as run_window_app
 from src.infrastructure.ui.webapp.web_app import run as run_web_app
 
 if __name__ == '__main__':
-    #run_cli_app()
-    # run_window_app()
-    run_web_app()
+    # run_cli_app()
+    run_window_app()
+    # run_web_app()
