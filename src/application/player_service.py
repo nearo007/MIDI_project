@@ -1,8 +1,7 @@
 import time
-from ..application.interfaces.midi_port import IMIDIPort
 
 class PlayerService:
-    def __init__(self, port: IMIDIPort):
+    def __init__(self, port):
         self.port = port
     
     def play_sequence(self, sequence, interval_speed, staccato=0.5):

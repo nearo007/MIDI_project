@@ -1,8 +1,8 @@
 #from src.infrastructure.adapters.mido_adapter import MidoAdapter
-from ...adapters.mido_adapter import MidoAdapter
-from ....domain.music_theory import get_scale_notes, to_playable_sequence, random_chord_sequence
-from ....application.player_service import PlayerService
-from ....domain.bpm import get_interval_speed
+from src.infrastructure.adapters.mido_adapter import MidoAdapter
+from src.domain.music_theory import get_scale_notes, to_playable_sequence, random_chord_sequence
+from src.application.player_service import PlayerService
+from src.domain.bpm import get_interval_speed
 
 def str_to_int(user_in: str): #TODO cli_app out of scope
     try:
