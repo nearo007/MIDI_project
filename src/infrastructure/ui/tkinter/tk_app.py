@@ -58,4 +58,8 @@ window.add_button(text="Play scale", command=sequence_start, grid=[0, 2])
 window.add_button(text="Stop", command=sequence_stop, grid=[1, 2])
 window.add_button(text="Let me out", command=window.root.destroy, grid=[0, 3])
 
-window.run()
+def run():
+    window.run()
+    
+if __name__ == '__main__':
+    run()

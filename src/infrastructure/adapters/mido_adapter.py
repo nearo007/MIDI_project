@@ -1,7 +1,6 @@
 import mido
-from ...application.interfaces.midi_port import IMIDIPort
 
-class MidoAdapter(IMIDIPort):
+class MidoAdapter():
     def __init__(self, port_name=None):
         self._requested_port_name = port_name
         self.outport = None
