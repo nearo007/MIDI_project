@@ -4,7 +4,7 @@ class PlayerService:
     def __init__(self, port):
         self.port = port
     
-    def play_sequence(self, sequence, interval_speed, staccato=0.5):
+    def play_sequence(self, sequence, interval_speed=0.5, staccato=0.5):
         note_duration = interval_speed * staccato
         silence_duration = interval_speed - note_duration
         
