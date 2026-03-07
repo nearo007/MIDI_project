@@ -33,12 +33,13 @@ def chord_lab():
 def change_progression():
     progression = request.json['progression']
     
-    print(progression) #TODO remove
     playable_progression = []
         
     for chord in progression:
         chromatic_scale = get_scale_notes(mode=3, key=chord[0], octave=chord[1])
         playable_progression.append(get_chord(scale=chromatic_scale, tonality=chord[2], seventh=chord[3]))
     
+    player_service.loop_async(sequence=playable_progression)
+    print(progression) #TODO remove
     print(playable_progression) #TODO remove
     return "", 204

@@ -12,8 +12,9 @@ def get_scale_notes(mode=0, key=1, octave=4, register=None, include_octave=False
     
     elif mode == 2:
         steps = [0, 3, 2, 1, 1, 3, 2] # minor blues
+        
     elif mode==3:
-        steps = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] # chromatic
+        steps = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] # chromatic
     
     current_id = b0 + key
     if not include_octave:
@@ -65,6 +66,7 @@ def random_chord_sequence(scale=None, chord_count=4, note_count=3):
 def get_chord(scale=get_scale_notes(mode=3), tonality=0, seventh=0): #tonality 0=maj 1=min, seventh 0=off 1=maj 2=min
     steps = []
     
+    print("scale: ", scale) #TODO remove
     if tonality == 0:
         steps.extend([0, 4, 7])
 
