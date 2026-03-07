@@ -1,16 +1,17 @@
-{% extends "layout.html" %}
+{% extends 'layout.html' %}
 
 {% block import_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/chord-lab.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/chord-lab.css') }}" />
 {% endblock %}
 
 {% block content %}
-<h1>NEARO PIANO</h1>
-<h2>Everybody is looking at me.</h2>
+  <h1>NEARO PIANO</h1>
+  <h2>Everybody is looking at me.</h2>
 
-<div class="chords-container" id="chordsContainer"></div>
+  <div class="chords-container" id="chordsContainer"></div>
+  <button id="btn-send">Send Progression</button>
 {% endblock %}
 
 {% block import_js %}
-<script src="{{ url_for('static', filename='js/chord-lab.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/chord-lab.js') }}"></script>
 {% endblock %}

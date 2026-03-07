@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, render_template, request, redirect
 from src.infrastructure.ui.flask.player_service import player_service
+from src.domain.music_theory import get_scale_notes, get_chord
 
 player_service_bp = Blueprint('player_service_bp', __name__)
 
@@ -27,3 +28,17 @@ def play():
 def chord_lab():
     
     return render_template("chord-lab.html")
+
+@player_service_bp.route("/chord-lab/change-progression", methods=['POST'])
+def change_progression():
+    progression = request.json['progression']
+    
+    print(progression) #TODO remove
+    playable_progression = []
+        
+    for chord in progression:
+        chromatic_scale = get_scale_notes(mode=3, key=chord[0], octave=chord[1])
+        playable_progression.append(get_chord(scale=chromatic_scale, tonality=chord[2], seventh=chord[3]))
+    
+    print(playable_progression) #TODO remove
+    return "", 204
