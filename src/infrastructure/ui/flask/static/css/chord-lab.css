@@ -50,3 +50,30 @@
     font-size: 0.9rem;
     width: 100%;
 }
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 30%;
+}
+
+.buttons button {
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: .1s;
+    cursor: pointer;
+}
+
+.buttons button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.buttons button:active {
+    background-color: rgba(255, 255, 255, 0.5);
+}
