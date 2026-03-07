@@ -66,7 +66,6 @@ def random_chord_sequence(scale=None, chord_count=4, note_count=3):
 def get_chord(scale=get_scale_notes(mode=3), tonality=0, seventh=0): #tonality 0=maj 1=min, seventh 0=off 1=maj 2=min
     steps = []
     
-    print("scale: ", scale) #TODO remove
     if tonality == 0:
         steps.extend([0, 4, 7])
 

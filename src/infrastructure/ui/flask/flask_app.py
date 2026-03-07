@@ -1,7 +1,6 @@
 import os
 from flask import Flask, render_template, jsonify
 from src.infrastructure.ui.flask.controllers.player_controller import player_service_bp
-from src.infrastructure.ui.flask.player_service import player_service
 
 class Application:
     def __init__(self):

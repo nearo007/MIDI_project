@@ -84,9 +84,9 @@ function getProgression() {
     ]);
 }
 
-async function sendProgression() {
+async function startProgression() {
     const progression = getProgression();
-    const res = await fetch('/chord-lab/change-progression', {
+    const res = await fetch('/chord-lab/start-progression', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ progression })
@@ -94,4 +94,13 @@ async function sendProgression() {
     return res.json();
 }
 
-document.getElementById('btn-send').addEventListener('click', sendProgression);
+async function stopProgression() {
+    const res = await fetch('/chord-lab/stop-progression', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+    });
+    return res.json();
+}
+
+document.getElementById('btn-start').addEventListener('click', startProgression);
+document.getElementById('btn-stop').addEventListener('click', stopProgression);

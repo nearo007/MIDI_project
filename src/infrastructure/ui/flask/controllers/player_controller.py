@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, render_template, request, redirect
-from src.infrastructure.ui.flask.player_service import player_service
+from src.infrastructure.ui.flask.instance import player_service
 from src.domain.music_theory import get_scale_notes, get_chord
 
 player_service_bp = Blueprint('player_service_bp', __name__)
@@ -15,10 +15,9 @@ def piano():
 @player_service_bp.route("/play", methods=['POST'])
 def play():
     key_num = request.form.get("key_num")
-    print(key_num)
     try:
         key_num = int(key_num)
-        player_service.play_async([[key_num]])
+        player_service.play_sequence([[key_num]])
     except Exception as e:
         print(f"Oh no!\n{e}")
     
@@ -29,8 +28,8 @@ def chord_lab():
     
     return render_template("chord-lab.html")
 
-@player_service_bp.route("/chord-lab/change-progression", methods=['POST'])
-def change_progression():
+@player_service_bp.route("/chord-lab/start-progression", methods=['POST'])
+def start_progression():
     progression = request.json['progression']
     
     playable_progression = []
@@ -39,7 +38,10 @@ def change_progression():
         chromatic_scale = get_scale_notes(mode=3, key=chord[0], octave=chord[1])
         playable_progression.append(get_chord(scale=chromatic_scale, tonality=chord[2], seventh=chord[3]))
     
-    player_service.loop_async(sequence=playable_progression)
-    print(progression) #TODO remove
-    print(playable_progression) #TODO remove
+    player_service.loop_sequence(sequence=playable_progression)
+    return "", 204
+
+@player_service_bp.route("/chord-lab/stop-progression", methods=['POST'])
+def stop_progression():
+    player_service.stop_loop()
     return "", 204
