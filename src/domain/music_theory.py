@@ -14,7 +14,7 @@ def get_scale_notes(mode=0, key=1, octave=4, register=None, include_octave=False
         steps = [0, 3, 2, 1, 1, 3, 2] # minor blues
         
     elif mode==3:
-        steps = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] # chromatic
+        steps = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] # chromatic
     
     current_id = b0 + key
     if not include_octave:
