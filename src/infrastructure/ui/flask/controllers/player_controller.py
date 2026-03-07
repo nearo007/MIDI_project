@@ -1,14 +1,15 @@
-from flask import Blueprint, jsonify, render_template, request
+from flask import Blueprint, jsonify, render_template, request, redirect
 from src.infrastructure.ui.flask.player_service import player_service
 
 player_service_bp = Blueprint('player_service_bp', __name__)
 
 @player_service_bp.route('/')
-def index():
-    name = "Everbody is,"
-    surname = "Looking at me."
-    
-    return render_template('index.html')
+def index():    
+    return redirect('/piano')
+
+@player_service_bp.route('/piano')
+def piano():
+    return render_template("piano.html")
 
 @player_service_bp.route("/play", methods=['POST'])
 def play():
@@ -24,4 +25,5 @@ def play():
 
 @player_service_bp.route("/chord-lab", methods=['GET'])
 def chord_lab():
-    return render_template("index.html")
+    
+    return render_template("chord-lab.html")
