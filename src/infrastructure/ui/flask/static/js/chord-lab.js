@@ -102,17 +102,5 @@ async function stopProgression() {
     return res.json();
 }
 
-async function setPort() {
-    const port = document.getElementById("select-port").value;
-    const res = await fetch('/chord-lab/set-port', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify({port})
-    });
-
-    return res.json();
-}
-
 document.getElementById('btn-start').addEventListener('click', startProgression);
 document.getElementById('btn-stop').addEventListener('click', stopProgression);
-document.getElementById('btn-setport').addEventListener('click', setPort);

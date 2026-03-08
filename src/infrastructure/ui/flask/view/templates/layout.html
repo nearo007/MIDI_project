@@ -4,24 +4,45 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-        {% block title %}
-            Mid Piano
-        {% endblock %}
+      {% block title %}
+        Mid Piano
+      {% endblock %}
     </title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}" />
 
-    {% block  import_css%}
+    {% block import_css %}
+
     {% endblock %}
-
   </head>
   <body>
     <header>
+      <div class="nav-left">
         <a href="/"><button>Piano</button></a>
         <a href="/chord-lab"><button>Chord Lab</button></a>
+      </div>
+
+      <div class="available-ports">
+        <div class="port-row">
+          <label for="select-port">Port</label>
+
+          <select name="port" id="select-port">
+            {% for port in available_ports %}
+              <option value="{{ port }}">{{ port }}</option>
+            {% endfor %}
+          </select>
+
+          <button id="btn-setport">Set</button>
+        </div>
+      </div>
     </header>
+    
     {% block content %}
+
     {% endblock %}
   </body>
-  {% block import_js%}
+
+  <script src="{{ url_for('static', filename='js/ports.js') }}"></script>
+  {% block import_js %}
+
   {% endblock %}
 </html>

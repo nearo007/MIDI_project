@@ -10,7 +10,8 @@ def index():
 
 @player_service_bp.route('/piano')
 def piano():
-    return render_template("piano.html")
+    available_ports = midi_adapter.available_outports()
+    return render_template("piano.html", available_ports=available_ports)
 
 @player_service_bp.route("/play", methods=['POST'])
 def play():
@@ -56,7 +57,7 @@ def stop_progression():
     player_service.stop_loop()
     return "", 204
 
-@player_service_bp.route("/chord-lab/set-port", methods=['POST'])
+@player_service_bp.route("/set-port", methods=['POST'])
 def set_port():
     player_service.stop_loop()
     port = request.json['port']
