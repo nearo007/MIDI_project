@@ -25,11 +25,13 @@ def play():
 
 @player_service_bp.route("/chord-lab", methods=['GET'])
 def chord_lab():
-    
     return render_template("chord-lab.html")
 
 @player_service_bp.route("/chord-lab/start-progression", methods=['POST'])
 def start_progression():
+    player_service.set_bpm(bpm=80) #TODO hard coded
+    player_service.set_staccato(staccato_value=1) #TODO hard coded
+    
     progression = request.json['progression']
     
     playable_progression = []
