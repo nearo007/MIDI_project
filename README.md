@@ -1,6 +1,6 @@
 # MIDI Project
 
-Aplicação Python para reprodução e interação com MIDI, construída com arquitetura limpa e múltiplas opções de interface: CLI, aplicação web com Flask e interface desktop com Tkinter.
+Aplicação Python para reprodução e interação com MIDI, construída com arquitetura limpa e interface web desenvolvida com Flask.
 
 ---
 
@@ -22,23 +22,18 @@ MIDI_project/
         ├── adapters/
         │   └── mido_adapter.py      # Adaptador MIDI usando mido
         └── ui/
-            ├── cli/
-            │   └── cli_app.py       # Interface de linha de comando
-            ├── flask/
-            │   ├── flask_app.py     # Aplicação web Flask
-            │   ├── instance.py
-            │   ├── controllers/
-            │   │   └── player_controller.py
-            │   ├── static/
-            │   │   ├── css/         # Estilos (chord-lab, piano, layout)
-            │   │   └── js/          # Scripts (chord-lab, piano, ports)
-            │   └── view/templates/
-            │       ├── chord-lab.html
-            │       ├── piano.html
-            │       └── layout.html
-            └── tkinter/
-                ├── tk_app.py        # Interface desktop Tkinter
-                └── window.py
+            └── flask/
+                ├── flask_app.py     # Aplicação web Flask
+                ├── instance.py
+                ├── controllers/
+                │   └── player_controller.py
+                ├── static/
+                │   ├── css/         # Estilos (chord-lab, piano, layout)
+                │   └── js/          # Scripts (chord-lab, piano, ports)
+                └── view/templates/
+                    ├── chord-lab.html
+                    ├── piano.html
+                    └── layout.html
 ```
 
 ---
@@ -49,7 +44,6 @@ MIDI_project/
 - Piano visual interativo na interface web
 - Chord Lab para explorar e tocar acordes pelo navegador
 - Seleção de porta MIDI disponível em todas as abas da interface
-- Multiplas interfaces: CLI, web (Flask) e desktop (Tkinter)
 - Arquitetura limpa com separação clara entre domínio, aplicação e infraestrutura
 
 ---
@@ -60,20 +54,18 @@ MIDI_project/
 |---|---|
 | Backend MIDI | mido + python-rtmidi |
 | Interface Web | Flask + Jinja2 |
-| Interface Desktop | Tkinter |
-| CLI | Python |
 | Linguagem | Python 3.12 |
 
 ---
 
 ## Como Executar
 
-### Pre-requisitos
+### Pré-requisitos
 
 - Python 3.10 ou superior
 - Porta MIDI virtual ou dispositivo MIDI físico (opcional)
 
-### Instalacao
+### Instalação
 
 ```bash
 # Clonar o repositório
@@ -92,23 +84,13 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### Execucao
+### Execução
 
-**Aplicação web Flask (recomendado):**
 ```bash
 python main.py
 ```
+
 Acesse `http://localhost:5000` no navegador.
-
-**CLI:**
-```bash
-python src/infrastructure/ui/cli/cli_app.py
-```
-
-**Interface desktop Tkinter:**
-```bash
-python src/infrastructure/ui/tkinter/tk_app.py
-```
 
 ---
 
@@ -129,7 +111,7 @@ pip install -r requirements.txt
 
 ## Branches
 
-| Branch | Descrição |
+| Branch | Descricao |
 |---|---|
 | `main` | Código estável |
 | `simplifying-structure` | Refatoração e melhorias estruturais |
