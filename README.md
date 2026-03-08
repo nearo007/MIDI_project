@@ -1,3 +1,5 @@
+<img width="1909" height="826" alt="Screenshot 2026-03-08 135621" src="https://github.com/user-attachments/assets/87ced8e5-20be-4b13-ae5d-6c0f1c58bfef" />
+
 # MIDI Project
 
 Aplicação Python para reprodução e interação com MIDI, construída com arquitetura limpa e interface web desenvolvida com Flask.
@@ -47,6 +49,10 @@ MIDI_project/
 - Arquitetura limpa com separação clara entre domínio, aplicação e infraestrutura
 
 ---
+
+## Chord Lab
+
+<img width="1905" height="871" alt="Screenshot 2026-03-08 135631" src="https://github.com/user-attachments/assets/d104d4b7-ab21-4113-b9ed-ceb50b1c9313" />
 
 ## Tecnologias
 
