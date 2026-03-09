@@ -1,24 +1,15 @@
-from .notes import b0
+from src.domain.notes import b0, scale_shapes
 import random
 
 def get_scale_notes(mode=0, key=1, octave=4, register=None, include_octave=False): # mode (0=major, 1=minor, 2=minor blues, 3=chromatic), key 1-12 (C to B), octave 1-7 (octaves)
     scale = []
     
-    if mode == 0:
-        steps = [0, 2, 2, 1, 2, 2, 2, 1] # major
+    steps = scale_shapes[mode]
     
-    elif mode == 1:
-        steps = [0, 2, 1, 2, 2, 1, 2, 2] # minor
-    
-    elif mode == 2:
-        steps = [0, 3, 2, 1, 1, 3, 2] # minor blues
-        
-    elif mode==3:
-        steps = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] # chromatic
-    
-    current_id = b0 + key
     if not include_octave:
         steps = steps[:-1]
+        
+    current_id = b0 + key
     
     if register is not None:
         octave = register[0]
